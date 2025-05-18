@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mensagem Especial</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display&family=Roboto&display=swap');
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #fceabb, #f8b500);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Roboto', sans-serif;
+      color: #3e2c1c;
+      overflow: hidden;
+      padding: 40px 20px;
+      box-sizing: border-box;
+      position: relative;
+    }
+
+    .container {
+      background:
+        linear-gradient(rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.85)),
+        url('foto/surprise.jpg')
+        center center / cover no-repeat;
+      padding: 30px 40px;
+      border-radius: 20px;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+      max-width: 600px;
+      text-align: center;
+      animation: fadeIn 2s ease forwards;
+      opacity: 0;
+      z-index: 1;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 2.8rem;
+      margin-bottom: 20px;
+      color: #7b3e00;
+    }
+
+    p {
+      font-size: 1.2rem;
+      line-height: 1.6;
+      margin-bottom: 15px;
+      font-style: italic;
+      color: #5a3e1b;
+      white-space: pre-line;
+    }
+
+    .dedicatoria {
+      margin-top: 30px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #7b3e00;
+      font-family: 'Playfair Display', serif;
+    }
+
+    footer {
+      margin-top: 40px;
+      font-size: 0.9rem;
+      font-style: italic;
+      color: #6b4f25;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    .petal {
+      position: fixed;
+      top: -40px;
+      width: 20px;
+      height: 20px;
+      background: radial-gradient(circle at center, #f7c1b5 0%, #e26e5e 80%);
+      border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+      opacity: 0.8;
+      pointer-events: none;
+      animation-name: fall;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+      z-index: 0;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0.8;
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+
+    #playButton {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background-color: #7b3e00;
+      border: none;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      color: #fff;
+      font-size: 24px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(123, 62, 0, 0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+      transition: background-color 0.3s ease;
+    }
+
+    #playButton:hover {
+      background-color: #a45d00;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Poema: Vinho e Flor</h1>
+    <p>
+      Descrever-te seria como transcrevê-lo em verso e prosa;<br />
+      Adoraria te aquecer como o vinho aquece o corpo.<br /><br />
+      Tocar suavemente tua pele, com a sutileza de uma rosa...<br />
+      Sentir teu cheiro como um perfume que embriaga os sentidos<br />
+      e me entorpece com o sabor intenso que invade todos os sentidos.<br /><br />
+      Se existirem almas gêmeas, como dizem os poemas,<br />
+      os românticos e os filmes de amor —<br />
+      você tem todos os requisitos para ser a minha.
+    </p>
+
+    <div class="dedicatoria">Este presente é para você, que ilumina meus dias — Gabriel</div>
+  </div>
+
+  <footer>Mensagem escrita por Rayana (Transcrito de um caderno)</footer>
+
+  <button id="playButton" title="Tocar música">▶️</button>
+
+  <audio id="backgroundAudio" loop>
+    <source src="surprise/SpotiDownloader.com - Tá em Tempo - Seu Jorge.mp3" type="audio/mpeg" />
+    Seu navegador não suporta áudio HTML5.
+  </audio>
+
+  <script>
+    function createPetal() {
+      const petal = document.createElement('div');
+      petal.classList.add('petal');
+      petal.style.left = Math.random() * window.innerWidth + 'px';
+      petal.style.animationDuration = (4 + Math.random() * 4) + 's';
+      petal.style.animationDelay = (Math.random() * 5) + 's';
+      document.body.appendChild(petal);
+
+      setTimeout(() => {
+        petal.remove();
+      }, 8000);
+    }
+
+    setInterval(createPetal, 500);
+
+    const playButton = document.getElementById('playButton');
+    const audio = document.getElementById('backgroundAudio');
+
+    playButton.addEventListener('click', () => {
+      if (audio.paused) {
+        audio.play();
+        playButton.textContent = '⏸️';
+        playButton.title = "Pausar música";
+      } else {
+        audio.pause();
+        playButton.textContent = '▶️';
+        playButton.title = "Tocar música";
+      }
+    });
+  </script>
+</body>
+</html>
